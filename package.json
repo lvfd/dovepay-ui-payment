@@ -1,0 +1,19 @@
+{
+  "name": "@lyufudi/dovepay-ui-payment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lvfd/dovepay-ui-payment.git"
+  },
+  "author": "lvfd@acca.com.cn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lvfd/dovepay-ui-payment/issues"
+  },
+  "homepage": "https://github.com/lvfd/dovepay-ui-payment#readme"
+}
