@@ -1,0 +1,151 @@
+<script language="javascript" src="https://test.dovepay.com/dovePay/js/PassGuardCtrl.js"></script>
+<script language="javascript" src="https://test.dovepay.com/dovePay/js/crypto-js.js"></script>
+<script language="javascript" src="https://test.dovepay.com/dovePay/js/thickbox.js"></script>
+<script type="text/javascript">
+$(function(){
+  createpasswordVC();
+});
+
+function get_time(){
+return new Date().getTime();
+}
+function _$(v){
+  return document.getElementById(v);
+}
+
+function FormSubmitVC(){  
+  //风控指纹采集
+  var deviceFinger = model.dfp.getDeviceFinger();
+  document.getElementById("deviceFingerId").value = deviceFinger;
+  var deviceToken = model.dfp.getDeviceToken();
+  document.getElementById("deviceTokenId").value = deviceToken;
+    
+  var userId = document.payFormVC.userId.value;
+  if(userId==""){
+    alert("用户名不能为空");
+    return false;
+  }
+  document.getElementById("formButtonVCId").disabled=true;
+  window.setTimeout("f1();", 3000 );
+  if(pgeditoraccountVC.pwdValid()==1){
+    alert("密码不符合要求");
+     _$("_ocx_passwordaccountVC").focus();
+     return false;
+  }   
+  if(pgeditoraccountVC.pwdLength()==0){
+       alert("密码不能为空");
+     _$("_ocx_passwordaccountVC").focus();
+     return false;
+  }
+  
+  $.ajax({
+    url: "https://test.dovepay.com/dovePay/srand_num.jsp?" + get_time(),
+    type : "GET",
+    async : false,
+    success : function(srand_num) {
+      pgeditoraccountVC.pwdSetSk(srand_num);
+    }
+  });
+
+  var PwdResult = pgeditoraccountVC.pwdResultSMGM();
+  document.getElementById("passwordVcId").value= PwdResult;;//获得密码密文,赋值给表单
+  var macResult = pgeditoraccountVC.machineNetwork();
+  document.getElementById("macNumberId").value= macResult;
+  
+  document.payFormVC.submit();
+}
+</script>
+
+
+<div id="vcPay"  style="display: none;" align="center">
+  <form class="payForm"  action="https://test.dovepay.com/dovePay/payAction.do" name="payFormVC" method="post" >
+    <input type="hidden" name="orderId" value="2023020300457362" /> 
+    <input type="hidden" name="m" value="virtualCardPay" />
+    <input type="hidden" id="macNumberId" name="macNumberVC" value="" />
+    <input type="hidden" id="SAFE_PLUGIN_LOGIN_PASSWORD" name="SAFE_PLUGIN_LOGIN_PASSWORD" />
+    <input type="hidden" name="token" value="1675410002236" />
+    <input type="hidden" name="deviceToken" id="deviceTokenId" /> 
+    <input type="hidden" name="deviceFinger" id="deviceFingerId" /> 
+    <div class="pay_iput" style="height: auto; overflow: hiddenq; text-align: center">
+      <table cellpadding="0" cellspacing="0" border="0" width="500" align="center">
+        <tr>
+          <td align="right" height="35">联名卡号：</td>
+          <td align="left" width="160"><input name="bankId" type="text" value="" onblur="checkFormVCBankId()"  /></td>
+          <td width="185"></td>
+        </tr>
+        <tr>
+          <td align="right" height="35">账户登录名：</td>
+          <td align="left" width="160"><input name="userId" type="text" value=""  /></td>
+          <td width="185"></td>
+        </tr>
+        <tr>
+          <td align="right" height="35" valign="middle">交易密码：&nbsp;</td>
+          <td align="left">&nbsp;
+            <span id="spanId"></span>
+            <script type="text/javascript">
+            //密码控件
+            function createpasswordVC(){
+              var random , datab;
+                //请求通讯加密两个参数(随机数pgeRZRandNum和数据B pgeRZDataB)
+                Ajax.request({
+                    url : "https://test.dovepay.com/dovePay/skey_enstr.jsp?" + get_time(),
+                    type :"GET",
+                    async : false,
+                    success : function(xhr){
+                        var skey_enstr = pgeCtrl.trim(xhr.responseText);
+                        var o = skey_enstr.split(",");
+                        random = o[0];
+                        datab = o[1];
+                    }
+                });
+                //new 控件对象
+                window.pgeditoraccountVC = new pge({
+                    pgePath : "https://test.dovepay.com/dovePay/ocx/",
+                    pgeId : "_ocx_passwordaccountVC",//控件id
+                    pgeEditType : 0,//控件显示类型,0(星号),1(明文)
+                    pgeEreg1 : "[\\s\\S]*",//输入过程中字符类型限制，如"[0-9]*"表示只能输入数字
+                    pgeEreg2 : "[\\s\\S]{6,20}",//输入完毕后字符类型判断条件，与pgeditor.pwdValid()方法对应
+                    pgeMaxLength : 20,//允许最大输入长度
+                    pgeTabIndex : 1,//tab键顺序
+                    pgeClass : "ocx_style",//控件css样式
+                    pgeInstallClass : "ocx_style",//针对安装或升级的css样式
+                    pgeOnKeyDown :"FormSubmitVC()",//回车键响应函数，需焦点在控件中才能响应
+                    tabCallBack : "input2",//火狐tab键回调函数,设置要跳转到的对象ID
+                    AffineX:getPasswordAffineX(),
+                    AffineY:getPasswordAffineY(),
+                    pgeWindowID : "passwordVC" + new Date().getTime() + 1,
+                    pgeRZRandNum : random,
+                    pgeRZDataB : datab
+                });
+                //定义公共对象
+                window.pgeCtrl = pgeditoraccountVC;
+                //绘制控件标签
+                pgeCtrl.pwdhtml("spanId",pgeditoraccountVC.load());
+                //初始化
+                pgeInit();
+            } 
+            </script>
+            <input type="hidden" name="passwordVC" id="passwordVcId" value="" />
+          </td>
+          <td align="right" height="35" valign="middle"><span class="tips">&nbsp;请输入账户交易密码，非银联卡密码！</span></td>
+          
+        </tr>
+        
+        <tr>
+          <td align="center" colspan="3" height="35">
+            <input type="button" id="formButtonVCId"  value="提交" class="botton" onclick="FormSubmitVC();" /> 
+            <input type="reset"  value="重置" class="botton" />
+          </td>
+        </tr>
+        <tr>
+          <td id="errLiVC1" style="text-align:right; font-weight:bold; display: none">&nbsp;</td>
+          <td id="errLiVC2"  style="display: none">
+            <span class="redab" id="errMsgVC">
+              
+            </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </form>
+</div>

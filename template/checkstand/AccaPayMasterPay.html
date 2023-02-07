@@ -1,0 +1,202 @@
+    <div id="masterPay"  style="display: none;" align="center">
+        <form class="payForm" action="https://test.dovepay.com/dovePay/payAction.do" method="post"
+              onsubmit="return checkCard();">
+            <input type="hidden" name="orderId" id="orderId" value="2023020300457362"/>
+            <input type="hidden" name="m" value="masterPay"/>
+            <input type="hidden" name="browser" id="browser" value=""/>
+            <br/>
+            <table cellpadding="0" cellspacing="0" border="0" width="700" align="center">
+                <tr>
+                    <td align="right" height="35" width="400">货币类型(Currency Type)：</td>
+                    <td align="left" width="160">CNY</td>
+                    <td width="185"></td>
+                </tr>
+                <tr>
+                    <td align="right" height="35"><span style="color:red">*</span>卡号(Card Number)：</td>
+                    <td align="left" width="160">
+                        <input name="cardno" id="cardno" type="text" value="" maxlength="19" minlength="9"
+                               onkeyup="this.value=this.value.replace(/[^\d]/g,'')"/>
+                        <br/>
+                        <span id="cardnomess" style="color: red; font-size: 12px;width:300px;display:block"></span>
+                    </td>
+                    <td width="185"></td>
+                </tr>
+                <tr>
+                    <td align="right" height="35"><span style="color:red">*</span>有效期(Valid Thru)：</td>
+                    <td align="left" width="160"><input name="expiry" id="expiry" type="text" value=""
+                                                        maxlength="5"
+                                                        onkeyup="this.value=this.value.replace(/[^\d]/g,'');expiryDate()"/>
+                        <br/><span id="expirymess" style="color: red; font-size: 12px"></span></td>
+                    <td width="185">(MM/YY)</td>
+                </tr>
+                <tr>
+                    <td align="right" height="35"><span style="color:red">*</span>CVV2：</td>
+                    <td align="left" width="160"><input name="cvvcode" id="cvvcode" type="text" value="" maxlength="4"
+                                                        minlength="3"
+                                                        onkeyup="this.value=this.value.replace(/[^\d]/g,'')"/>
+                        <br/><span id="cvvcodemess" style="color: red; font-size: 12px"></span></td>
+                    <td width="185"><a href="#" onclick="document.getElementById('leftDiv1').style.display = 'block'">
+                        <span style="color:blue">查看样例(Example)</span></a></td>
+                </tr>
+                <tr>
+                    <td colspan="3" height="10"></td>
+                </tr>
+                <tr>
+                    <td align="right"><span style="color: red">注：</span></td>
+                    <td align="left" colspan="2"><span style="color: red">目前仅支持万事达与JCB的外卡支付。</span></td>
+                </tr>
+                <tr>
+                    <td align="right"><span style="color: red">Note：</span></td>
+                    <td align="left" colspan="2"><span style="color: red">Only mastercard and JCB are supported.</span>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <br/>
+            <input type="submit" value="提交支付(Confirm Payment)" id="btsub" class="botton"
+                   style="margin:0 auto;display:block"/>
+        </form>
+        <div id="leftDiv1" class="white_content">
+            <div class='divclose'><span onclick="document.getElementById('leftDiv1').style.display='none'">
+                            关闭</span></div>
+            <img src="https://test.dovepay.com/dovePay/images/cvv2.jpg" height="100" width="200"/>
+        </div>
+    </div>
+
+<script type="text/javascript">
+    function expiryDate() {
+        var expiry = $("#expiry").val();
+        if (expiry.length < 2) {
+            expiry = expiry.replace(/[^\d]/g, '');
+        }
+        if (expiry.length >= 2 && expiry.indexOf("/") == -1) {
+            expiry = expiry.substr(0, 2) + "/" + expiry.substr(2);
+        }
+        if (expiry.length > 3) {
+            var yy = expiry.substr(3);
+            if (yy.indexOf("/") != -1) {
+                yy = expiry.replace(/[^\d]/g, '');
+                expiry = expiry.substr(0, 3) + yy;
+            }
+        }
+        $("#expiry").val(expiry);
+    }
+
+    function checkCard() {
+        document.getElementById("cardnomess").innerText = "";
+        document.getElementById("expirymess").innerText = "";
+        document.getElementById("cvvcodemess").innerText = "";
+        var check = /^[0-9]{9,19}$/;
+        var cardno = $("#cardno").val();
+        if (!check.test(cardno)) {
+            document.getElementById("cardnomess").innerText = "请输入卡号(Please enter the card number)";
+            /*             document.getElementById("cardnomess").innerText = "卡号格式为9-19位的整数!"; */
+            return false;
+        }
+        var check2 = /^\d{2}\/\d{2}$/;
+        var expiry = $("#expiry").val();
+        if (!check2.test(expiry)) {
+            document.getElementById("expirymess").innerText = "请输入有效期(Please enter the Valid Thru)";
+            /*             document.getElementById("expirymess").innerText = "有效期格式为MM/YY的整数!"; */
+            return false;
+        }
+        var check3 = /^[0-9]{3,4}$/;
+        var cvvcode = $("#cvvcode").val();
+        if (!check3.test(cvvcode)) {
+            document.getElementById("cvvcodemess").innerText = "请输入CVV2(Please enter the CVV2)";
+            /*             document.getElementById("cvvcodemess").innerText = "卡号格式为3-4位的整数!"; */
+            return false;
+        }
+        var brows = getBrowserInfo();
+        $("#browser").val(brows.browser);
+        //因3DS接口缓慢,需添加遮罩提示用户
+        loading();
+    }
+
+    function loading() {
+        var mask_bg = document.createElement("div");
+        mask_bg.id = "mask_bg";
+        mask_bg.style.position = "absolute";
+        mask_bg.style.top = "0px";
+        mask_bg.style.left = "0px";
+        mask_bg.style.width = "100%";
+        mask_bg.style.height = "100%";
+        mask_bg.style.backgroundColor = "#777";
+        mask_bg.style.opacity = 0.6;
+        mask_bg.style.zIndex = 10001;
+        document.body.appendChild(mask_bg);
+
+        var mask_msg = document.createElement("div");
+        mask_msg.style.position = "absolute";
+        mask_msg.style.top = "35%";
+        mask_msg.style.left = "42%";
+        mask_msg.style.backgroundColor = "white";
+        mask_msg.style.border = "#336699 1px solid";
+        mask_msg.style.textAlign = "center";
+        mask_msg.style.fontSize = "1.1em";
+        mask_msg.style.fontWeight = "bold";
+        mask_msg.style.padding = "0.5em 3em 0.5em 3em";
+        mask_msg.style.zIndex = 10002;
+        mask_msg.innerText = "正在进行3DS验证,请稍候...";
+        mask_bg.appendChild(mask_msg);
+    }
+
+
+    function getBrowserInfo() {
+        var Sys = {};
+        var ua = navigator.userAgent.toLowerCase();
+
+        var re = /(msie|firefox|chrome|opera|version).*?([\d.]+)/;
+        var m = ua.match(re);
+        if (m == null && ua.indexOf("rv:11") > -1) {
+            Sys.browser = "msie";
+            Sys.ver = "11.X";
+        } else if (m == null && ua.indexOf("rv:11") < 0) {
+            Sys.browser = "other";
+            Sys.ver = "未知";
+        } else {
+
+            Sys.browser = m[1].replace(/version/, "safari");
+            Sys.ver = m[2];
+        }
+        return Sys;
+    }
+</script>
+<style type="text/css">
+    .white_content {
+        display: none;
+        position: absolute;
+        top: 65%;
+        left: 52%;
+        background-color: white;
+        z-index: 1000;
+        overflow: auto;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+
+    .divclose {
+        position: absolute;
+        top: 1px;
+        right: 1px;
+    }
+
+    #btsub { /* 按钮美化 */
+        width: 170px; /* 宽度 */
+        height: 40px; /* 高度 */
+        border-width: 0px; /* 边框宽度 */
+        border-radius: 5px; /* 边框半径 */
+        background: #483D8B; /* 背景颜色 */
+        cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+        outline: none; /* 不显示轮廓线 */
+        font-family: Microsoft YaHei; /* 设置字体 */
+        color: white; /* 字体颜色 */
+        font-size: 12px; /* 字体大小 */
+    }
+
+    #btsub:hover { /* 鼠标移入按钮范围时改变颜色 */
+        background: #5599FF;
+    }
+
+
+</style>

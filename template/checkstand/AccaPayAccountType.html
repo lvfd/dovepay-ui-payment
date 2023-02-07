@@ -1,0 +1,185 @@
+<script language="javascript" src="https://test.dovepay.com/dovePay/js/PassGuardCtrl.js"></script>
+<script language="javascript" src="https://test.dovepay.com/dovePay/js/crypto-js.js"></script>
+<script language="javascript" src="https://test.dovepay.com/dovePay/js/thickbox.js"></script>
+<script language="javascript" src="https://test.dovepay.com/dovePay/js/password.js"></script>
+<script type="text/javascript">
+$(function(){
+  createpassword1();
+});
+
+function FormSubmit(){  
+  //风控指纹采集
+    var deviceFinger = model.dfp.getDeviceFinger();
+    document.getElementById("deviceFinger").value = deviceFinger;
+    var deviceToken = model.dfp.getDeviceToken();
+    document.getElementById("deviceToken").value = deviceToken;
+    
+  var userId = document.getElementById("userId").value;
+  if(userId==""){
+    alert("用户名不能为空");
+    return false;
+  }
+  document.getElementById("formButtonId").disabled=true;
+  window.setTimeout("f1();", 3000 );
+
+  if(pgeditoraccount.pwdValid()==1){
+    alert("密码不符合要求");
+     _$("_ocx_passwordaccount").focus();
+     return false;
+  }   
+  if(pgeditoraccount.pwdLength()==0){
+       alert("密码不能为空");
+     _$("_ocx_passwordaccount").focus();
+     return false;
+  }
+  
+  $.ajax({
+    url: "https://test.dovepay.com/dovePay/srand_num.jsp?" + get_time(),
+    type : "GET",
+    async : false,
+    success : function(srand_num) {
+      pgeditoraccount.pwdSetSk(srand_num);
+    }
+  });
+
+  var PwdResult = pgeditoraccount.pwdResultSMGM();
+  _$("password").value = PwdResult;//获得密码密文,赋值给表单
+  var macResult = pgeditoraccount.machineNetwork();
+  _$("macNumber").value = macResult;
+  document.payForm.submit();
+}
+</script>
+
+
+
+
+  <form class="payForm" id="zhPay" action="https://test.dovepay.com/dovePay/payAction.do" name="payForm" method="post" >
+    <input type="hidden" name="orderId" value="2023020300457362" /> 
+    <input type="hidden" name="isBlRepay" value="0" /> 
+    <input type="hidden" name="m" value="login" />
+    <input type="hidden" id="macNumber" name="macNumber" value="" />
+    <input type="hidden" id="SAFE_PLUGIN_LOGIN_PASSWORD" name="SAFE_PLUGIN_LOGIN_PASSWORD" />
+    <input type="hidden" name="token" value="1675410002236" />
+    <input type="hidden" name="deviceToken" id="deviceToken" /> 
+    <input type="hidden" name="deviceFinger" id="deviceFinger" /> 
+    <div class="pay_iput" style="height: auto; overflow: hiddenq; text-align: center">
+      <table cellpadding="0" cellspacing="0" border="0" width="500" align="center">
+        <tr>
+          <td align="right" height="35">账户登录名：</td>
+          <td align="left" width="160"><input name="userId" id="userId" type="text" value="" onblur="checkForm()" /></td>
+          <td width="185"></td>
+        </tr>
+        <tr>
+          <td align="right" height="35" valign="middle">交易密码：&nbsp;</td>
+          <td align="left">&nbsp;
+            <span id="_ocx_password_account_str"></span>
+            
+            <script type="text/javascript">
+              
+                  function createpassword1(){
+                    var random , datab;
+                      //请求通讯加密两个参数(随机数pgeRZRandNum和数据B pgeRZDataB)
+                      Ajax.request({
+                          url : "https://test.dovepay.com/dovePay/skey_enstr.jsp?" + get_time(),
+                          type :"GET",
+                          async : false,
+                          success : function(xhr){
+                              var skey_enstr = pgeCtrl.trim(xhr.responseText);
+                              var o = skey_enstr.split(",");
+                              random = o[0];
+                              datab = o[1];
+                          }
+                      });
+                      //new 控件对象
+                      window.pgeditoraccount = new pge({
+                          pgePath : "https://test.dovepay.com/dovePay/ocx/",
+                          pgeId : "_ocx_passwordaccount",//控件id
+                          pgeEditType : 0,//控件显示类型,0(星号),1(明文)
+                          pgeEreg1 : "[\\s\\S]*",//输入过程中字符类型限制，如"[0-9]*"表示只能输入数字
+                          pgeEreg2 : "[\\s\\S]{6,20}",//输入完毕后字符类型判断条件，与pgeditor.pwdValid()方法对应
+                          pgeMaxLength : 20,//允许最大输入长度
+                          pgeTabIndex : 1,//tab键顺序
+                          pgeClass : "ocx_style",//控件css样式
+                          pgeInstallClass : "ocx_style",//针对安装或升级的css样式
+                          pgeOnKeyDown :"FormSubmit()",//回车键响应函数，需焦点在控件中才能响应
+                          tabCallBack : "input2",//火狐tab键回调函数,设置要跳转到的对象ID
+                          AffineX:getPasswordAffineX(),
+                          AffineY:getPasswordAffineY(),
+                          pgeWindowID : "password" + new Date().getTime() + 1,
+                          pgeRZRandNum : random,
+                          pgeRZDataB : datab
+                          
+                      });
+
+                      //定义公共对象
+                      window.pgeCtrl = pgeditoraccount;
+                      //绘制控件标签
+                      pgeCtrl.pwdhtml("_ocx_password_account_str",pgeditoraccount.load());
+                      //初始化
+                      pgeInit();
+                  }
+                    
+                  /**
+                    * 银联无卡快捷支付页确认支付按钮
+                    * @returns {Boolean}
+                    */
+                   function quickConfirmPayunionpay(){
+                    var ObjValue= document.getElementById("accountChoose");
+                    if(ObjValue!=null && ObjValue.checked){
+                      $('#isTogether').val("1");
+                    }
+                    $('#payUserBank_m').val('quickPayment');
+                    $('#payUserBank_m1').val('quickPayment');
+
+                    if(pgeditorunionpay.pwdValid()==1){
+                      alert("密码不符合要求");
+                       _$("_ocx_passwordunionpay").focus();
+                       return false;
+                    }   
+                    if(pgeditorunionpay.pwdLength()==0){
+                         alert("密码不能为空");
+                       _$("_ocx_passwordunionpay").focus();
+                       return false;
+                    }
+                    
+                    $.ajax({
+                      url: "https://test.dovepay.com/dovePay/srand_num.jsp?"+get_time(),
+                      type: "GET",
+                      async: false,
+                      success: function(srand_num){
+                        pgeditoSMnionpay.pwdSetSk(srand_num);
+                      }
+                     });
+
+                    var PwdResult=pgeditorunionpay.pwdResultSMGM();
+                    _$("password").value=PwdResult;//获得密码密文,赋值给表单
+                    var macResult = pgeditor.machineNetwork();
+                    _$("macNumber").value = macResult;
+                    //提交form
+                    document.payUserBank.submit();
+                   }
+            </script>
+                
+            <input type="hidden" name="password" id="password" value="" />
+          </td>
+          <td align="right" height="35" valign="middle"><span class="tips">&nbsp;如忘记密码，请联系客服！</span></td>
+          
+        </tr>
+        
+        <tr>
+          <td align="center" colspan="3" height="35">
+            <input type="button"  id="formButtonId"  value="提交" class="botton" onclick="FormSubmit();" /> 
+            <input type="reset"  value="重置" class="botton" />
+          </td>
+        </tr>
+        <tr>
+          <td id="errLi1" style="text-align:right; font-weight:bold; display: none">&nbsp;</td>
+          <td id="errLi2"  style="display: none">
+            <span class="redab" id="errMsg">
+              
+            </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </form>

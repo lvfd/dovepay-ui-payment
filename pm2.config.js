@@ -1,8 +1,8 @@
 module.exports = {
   apps: [{
     name: 'dove-ui-payment',
-    script: 'test/index.js',
-    watch: ['test/template', 'test/index.js'],
+    script: 'server.js',
+    watch: ['template', 'server.js'],
     watch_delay: 1000,
     ignore_watch: ['node_modules'],
     env_production: {
