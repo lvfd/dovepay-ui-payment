@@ -5,7 +5,8 @@ const path = require('path')
 module.exports = merge(common, {
   name: 'dovepay-ui-payment',
   entry: {
-    main: './src/main'
+    accaActPay: './src/accaActPay',
+    accaBankPay: './src/accaBankPay'
   },
   module: {
     rules: [{
@@ -15,6 +16,14 @@ module.exports = merge(common, {
         filename: 'asset/origin/[name][ext]'
       },
       include: [path.resolve(__dirname, 'src')]
+    },
+    {
+      test: /\.(js|css)$/i,
+      type: 'asset/resource',
+      generator: {
+        filename: 'asset/uikit/[name][ext]'
+      },
+      include: [path.resolve(__dirname, 'node_modules/@lyufudi/uikit/dist')]
     }]
   }
 })

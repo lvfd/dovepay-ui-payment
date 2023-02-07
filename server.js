@@ -13,9 +13,8 @@ app.engine('html', ejs.__express)
 app.set('views', path.resolve(__dirname, 'template'))
 
 app.use('/dt/dist', express.static(path.resolve(__dirname, 'dist')))
-app.get('/dt/1', (req, res) => {
-    res.render('accaActPay')
-})
+app.get('/dt/1', (req, res) => res.render('accaActPay'))
+app.get('/dt/2', (req, res) => res.render('accaBankPay'))
 
 app.listen(port, () => {
     console.log(`支付收银台测试页面 ${port} 端口以 ${env} 模式运行了`)

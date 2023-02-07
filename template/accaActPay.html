@@ -1,122 +1,65 @@
 <!-- 3.1.1账户支付界面 -->
 <!-- orderAction.do -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
-
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>德付通支付平台</title>
-<script type="text/javascript"
-  src="https://test.dovepay.com/dovePay/js/jquery-one.seven.min.js"></script>
-<link type="text/css" rel="stylesheet"
-  href="https://test.dovepay.com/dovePay/css/dovePay2.0/base.css" />
-<link type="text/css" rel="stylesheet"
-  href="https://test.dovepay.com/dovePay/style/payweb.css" />
-<link type="text/css" rel="stylesheet"
-  href="https://test.dovepay.com/dovePay/css/dovePay2.0/headAndFoot.css" />
-<link type="text/css" rel="stylesheet"
-  href="https://test.dovepay.com/dovePay/css/thickbox.css" />
-<link type="text/css" rel="stylesheet"
-  href="https://test.dovepay.com/dovePay/css/password2.css" />
-<script language="javascript"
-  src="https://test.dovepay.com/dovePay/js/PassGuardCtrl.js"></script>
-<script language="javascript"
-  src="https://test.dovepay.com/dovePay/js/crypto-js.js"></script>
-<script language="javascript"
-  src="https://test.dovepay.com/dovePay/js/thickbox.js"></script>
-<script language="javascript"
-  src="https://test.dovepay.com/dovePay/js/password.js"></script>
-<script language="javascript"
-  src="https://test.dovepay.com/dovePay/js/dfp_CH01.js"></script>
+<script type="text/javascript" src="https://test.dovepay.com/dovePay/js/jquery-one.seven.min.js"></script>
+<script type="text/javascript" src="https://test.dovepay.com/dovePay/js/jquery.DatePicker.min.js"></script>
+<script language="javascript" src="https://test.dovepay.com/dovePay/js/PassGuardCtrl.js"></script>
+<script language="javascript" src="https://test.dovepay.com/dovePay/js/crypto-js.js"></script>
+<script language="javascript" src="https://test.dovepay.com/dovePay/js/thickbox.js"></script>
+<script language="javascript" src="https://test.dovepay.com/dovePay/js/password.js"></script>
+<script language="javascript" src="https://test.dovepay.com/dovePay/js/dfp_CH01.js"></script>
 <script type="text/javascript" src="http://localhost:3001/dt/dist/main.js"></script>
 </head>
 <body>
-  <%- include('protected/header.html') %>
-  <div class="blackDotsHeroTop"></div>
-  <div class="payw">
-    <div class="leftpay"
-      style="height: auto; overflow: hidden; padding-bottom: 50px;">
-      
-        <div class="titpy">
-          <img src="https://test.dovepay.com/dovePay/images/tit_ddxx.gif"
-            alt="订单信息" width="110" height="43" />
+  <header class="uk-box-shadow-medium"><%- include('protected/header.html') %></header>
+  <main>
+    <div class="payw uk-container uk-container-large uk-padding-small">
+      <div class="uk-flex uk-flex-center">
+        <div class="leftpay uk-width-3-4 uk-margin-right">
+          <h1 class="uk-heading-bullet uk-heading-line uk-h4"><span>订单信息</span></h1>
+          <table class="uk-table uk-table-striped uk-table-small">
+            <tr>
+              <td>商品名称</td>
+              <td>商品描述</td>
+              <td>订单号</td>
+              <td>金额(元)</td>
+              <td>下单时间</td>
+              <td>备注信息</td>
+            </tr>
+            <tr>
+              <td>YiZhanShi</td>
+              <td>Ticket</td>
+              <td>ZF20230203153938140</td>
+              <td>
+                50.00 
+              </td>
+              <td>
+                2023年02月03日 
+              </td>
+              <td id="zhangjie">
+                 ext1 
+              </td>
+            </tr>
+          </table>
+          <%- include('checkstand/AccaPayTittle.html') %>
+          <!-- 账户、网银、支付宝、微信,国际信用卡，银联卡支付  -->
+          <ul class="uk-switcher">
+            <li><%- include('checkstand/AccaPayAccountType.html') %></li><!--id="zhPay"  账户 -->
+            <li><%- include('checkstand/AccaPayBankType.html') %></li><!--id="wzhPay"  无账户 -->
+            <li><%- include('checkstand/AccaPayWechatPayCode.html') %></li><!--id="wechatPay"   微信-->
+            <li><%- include('checkstand/AccaPayUNIONAliPayCode.html') %></li><!-- id="AliPay" 支付宝-->
+            <li><%- include('checkstand/AccaPayMasterPay.html') %></li><!-- id="masterPay"  国际信用卡-->
+            <li><%- include('checkstand/virtualCardPay.html') %></li><!-- id="vcPay"  银联卡支付-->
+          </ul>
         </div>
-        <table width="700" height="60" border="1" align="center"
-          cellpadding="1" cellspacing="1" bgcolor="#FFFFFF">
-          <tr>
-            <td align="center" bgcolor="#b6e6fb">商品名称</td>
-            <td align="center" bgcolor="#b6e6fb">商品描述</td>
-            <td align="center" bgcolor="#b6e6fb">订单号</td>
-            <td align="center" bgcolor="#b6e6fb">金额(元)</td>
-            <td align="center" bgcolor="#b6e6fb">下单时间</td>
-            <td align="center" bgcolor="#b6e6fb">备注信息</td>
-          </tr>
-          <tr>
-            <td align="center" bgcolor="#e4f4fc">YiZhanShi</td>
-            <td align="center" bgcolor="#e4f4fc">Ticket</td>
-            <td align="center" bgcolor="#e4f4fc">ZF20230203153938140</td>
-            <td align="center" bgcolor="#e4f4fc">
-              50.00 
-            </td>
-            <td align="center" bgcolor="#e4f4fc">
-              2023年02月03日 
-            </td>
-            <td align="center" bgcolor="#e4f4fc" id="zhangjie">
-               ext1 
-            </td>
-          </tr>
-        </table>
-        <br />
-        <%- include('checkstand/AccaPayTittle.html') %>
-        <!-- 账户、网银、支付宝、微信,国际信用卡，银联卡支付  -->
-        <%- include('checkstand/AccaPayAccountType.html') %><!--id="zhPay"  账户 -->
-        <%- include('checkstand/virtualCardPay.html') %><!-- id="vcPay"  银联卡支付-->
-        <%- include('checkstand/AccaPayBankType.html') %>
-        <%- include('checkstand/AccaPayUNIONAliPayCode.html') %><!-- id="AliPay" 支付宝-->
-        <%- include('checkstand/AccaPayWechatPayCode.html') %><!--id="wechatPay"   微信-->
-        <%- include('checkstand/AccaPayMasterPay.html') %><!-- id="masterPay"  国际信用卡-->
-    </div>
-
-    <div class="rightpay" style="height: auto">
-      <span><img
-        src="https://test.dovepay.com/dovePay/images/helphot.gif" alt="在线客服"
-        width="224" height="117" /></span>
-      <div class="helptext">
-        <ul>
-          <li class="titb">&nbsp;<b style="color: #253d83;"><a
-              href="https://test.dovepay.com/dovePay/protected/notice/noticeAction.do?m=getAllNoticeList">公告</a></b></li>
-          <li><a href="#"></a></li>
-          
-          <li>&middot; <a
-            href="https://test.dovepay.com/dovePay/protected/notice/noticeAction.do?m=getNoticeDetail&ID=NT20220802151246"
-            target="_blank">789789 </a>
-          </li>
-          
-          <li>&middot; <a
-            href="https://test.dovepay.com/dovePay/protected/notice/noticeAction.do?m=getNoticeDetail&ID=NT20220802151112"
-            target="_blank">12312312 </a>
-          </li>
-          
-          <li>&middot; <a
-            href="https://test.dovepay.com/dovePay/protected/notice/noticeAction.do?m=getNoticeDetail&ID=NT20220802150410"
-            target="_blank">test2 </a>
-          </li>
-          
-          <li>&middot; <a
-            href="https://test.dovepay.com/dovePay/protected/notice/noticeAction.do?m=getNoticeDetail&ID=NT20220802145145"
-            target="_blank">test </a>
-          </li>
-          
-          <li>&middot; <a
-            href="https://test.dovepay.com/dovePay/protected/notice/noticeAction.do?m=getNoticeDetail&ID=NT20181105143200"
-            target="_blank">1212 </a>
-          </li>
-          
-        </ul>
+        <%- include('rightpay.html') %>
       </div>
     </div>
-    <div class="cb"></div>
-  </div>
-  <%- include('protected/footer.html') %>
+  </main>
+  <footer class="uk-background-muted"><%- include('protected/footer.html') %></footer>
 </body>
 </html>
