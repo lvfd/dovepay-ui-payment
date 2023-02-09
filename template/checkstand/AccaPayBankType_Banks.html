@@ -21,55 +21,73 @@
       <td height="60" valign="top" class="blank">
       <% if (src === 'AccaPayBankType') { %>
         <span>
-          <input type="radio" name="bankId" value="unionpaydcCCB|unionpaydc|CCB|13"/>
-          <img src="https://test.dovepay.com/dovePay/images/bank/unionpaydcCCB.jpg" title="建设银行快捷-01"  alt="建设银行快捷-01" />
+          <input class="uk-radio" type="radio" name="bankId" value="unionpaydcCCB|unionpaydc|CCB|13"/>
+          <button type="button" class="uk-button uk-button-default">
+            <img src="" title="建设银行快捷-01" alt="建设银行快捷-01">
+          </button>
         </span>
 
         <span>
-          <input type="radio" name="bankId" value="unionpayNOCARDBCCB|dove|unionpayNOCARDBCCB|13"/>
-          <img src="https://test.dovepay.com/dovePay/images/bank/unionpayNOCARDBCCB.jpg" title="北京银行-银联无卡快捷"  alt="北京银行-银联无卡快捷" />
+          <input class="uk-radio" type="radio" name="bankId" value="unionpayNOCARDBCCB|dove|unionpayNOCARDBCCB|13"/>
+          <button type="button" class="uk-button uk-button-default">
+            <img src="" title="北京银行-银联无卡快捷" alt="北京银行-银联无卡快捷">
+          </button>
         </span>
 
         <span>
-          <input type="radio" name="bankId" value="unionpayNOCARDICBC|dove|unionpayNOCARDICBC|13"/>
-          <img src="https://test.dovepay.com/dovePay/images/bank/unionpayNOCARDICBC.jpg" title="工商银行"  alt="工商银行" />
+          <input class="uk-radio" type="radio" name="bankId" value="unionpayNOCARDICBC|dove|unionpayNOCARDICBC|13"/>
+          <button type="button" class="uk-button uk-button-default">
+            <img src="" title="工商银行" alt="工商银行">
+          </button>
         </span>
       <% } else if (src === 'accaBankPay') { %>
         <span>
-          <input type="radio" name="bankId" value="RXTICBC|HXB_RXTKH|RXTICBC|2"/>
-          <img src="https://test.dovepay.com/dovePay/images/bank/RXTICBC.jpg" title="工商银行-02"  alt="工商银行-02" />
+          <input class="uk-radio" type="radio" name="bankId" value="RXTICBC|HXB_RXTKH|RXTICBC|2"/>
+          <button type="button" class="uk-button uk-button-default">
+            <img src="" title="工商银行-02" alt="工商银行-02">
+          </button>
         </span>
 
         <span>
-          <input type="radio" name="bankId" value="unionpayCMBC|unionpay|CMBC|2"/>
-          <img src="https://test.dovepay.com/dovePay/images/bank/unionpayCMBC.jpg" title="民生银行-01"  alt="民生银行-01" />
+          <input class="uk-radio" type="radio" name="bankId" value="unionpayCMBC|unionpay|CMBC|2"/>
+          <button type="button" class="uk-button uk-button-default">
+            <img src="" title="民生银行-01" alt="民生银行-01">
+          </button>
         </span>
 
         <span>
-          <input type="radio" name="bankId" value="unionpaywgB2CCCBCREDIT|unionpaywgB2C|CCB|2"/>
-          <img src="https://test.dovepay.com/dovePay/images/bank/unionpaywgB2CCCBCREDIT.jpg" title="建设银行-贷记卡-银联网关个人版"  alt="建设银行-贷记卡-银联网关个人版" />
+          <input class="uk-radio" type="radio" name="bankId" value="unionpaywgB2CCCBCREDIT|unionpaywgB2C|CCB|2"/>
+          <button type="button" class="uk-button uk-button-default">
+            <img src="" title="建设银行-贷记卡-银联网关个人版" alt="建设银行-贷记卡-银联网关个人版">
+          </button>
         </span>
 
         <span>
-          <input type="radio" name="bankId" value="RXTCMB|HXB_RXTKH|RXTCMB|2"/>
-          <img src="https://test.dovepay.com/dovePay/images/bank/RXTCMB.jpg" title="招商银行-02"  alt="招商银行-02" />
+          <input class="uk-radio" type="radio" name="bankId" value="RXTCMB|HXB_RXTKH|RXTCMB|2"/>
+          <button type="button" class="uk-button uk-button-default">
+            <img src="" title="招商银行-02" alt="招商银行-02">
+          </button>
         </span>
 
         <span>
-          <input type="radio" name="bankId" value="unionpayTokenCredit|dove|unionpayTokenCredit|2"/>
-          <img src="https://test.dovepay.com/dovePay/images/bank/unionpayTokenCredit.jpg" title="银联Token支付-贷记"  alt="银联Token支付-贷记" />
+          <input class="uk-radio" type="radio" name="bankId" value="unionpayTokenCredit|dove|unionpayTokenCredit|2"/>
+          <button type="button" class="uk-button uk-button-default">
+            <img src="" title="银联Token支付-贷记" alt="银联Token支付-贷记">
+          </button>
         </span>
 
         <span>
-          <input type="radio" name="bankId" value="unionpayTokenDebit|dove|unionpayTokenDebit|2"/>
-          <img src="https://test.dovepay.com/dovePay/images/bank/unionpayTokenDebit.jpg" title="银联token支付-借记"  alt="银联token支付-借记" />
+          <input class="uk-radio" type="radio" name="bankId" value="unionpayTokenDebit|dove|unionpayTokenDebit|2"/>
+          <button type="button" class="uk-button uk-button-default">
+            <img src="" title="银联token支付-借记" alt="银联token支付-借记111">
+          </button>
         </span>
       <% } %>
       </td>
     </tr>
   </table>
-  <div class="til_iput">
-    <input type="button" name="button" value="提交" onclick="setLineBank();" class="uk-button uk-button-default" />
+  <div class="uk-flex uk-flex-center uk-margin">
+    <input type="button" name="button" value="提交" onclick="setLineBank();" class="uk-button uk-button-primary" />
   </div>
 </ol>
 
@@ -125,56 +143,56 @@
     </tr>
   </table>
 
-  <div class="til_iput">
+  <div class="uk-flex uk-flex-center uk-margin">
     <input type="button" name="button" value="提交" onclick="setLineBank();" class="uk-button uk-button-primary">
   </div>
 </ol>
 <% } %>
 
 <ol class="yui-nav2 SelectBank clearfix line_h36" id="payInput_3" style="display: none">
-  <table class="bankChoice" border="0" align="center" cellpadding="0" cellspacing="0">
-  <tr>
-    <td height="60" valign="top" class="blank">
+  <div class="uk-grid-small" uk-grid>
+    <span>
+      <input class="uk-radio" type="radio" name="bankId" value="NUCCB2BICBC|NUCCB2B|ICBC|3"/>
+      <button type="button" class="uk-button uk-button-default">
+        <img src="" title="中国工商银行-网联" alt="中国工商银行-网联">
+        <span class="bscript">企业</span>
+      </button>
+    </span>
 
-        <span>
-          <input class="uk-radio" type="radio" name="bankId" value="NUCCB2BICBC|NUCCB2B|ICBC|3"/>
-          <button type="button" class="uk-button uk-button-default">
-            <img src="" title="中国工商银行-网联" alt="中国工商银行-网联">
-          </button>
-        </span>
+    <span>
+      <input class="uk-radio" type="radio" name="bankId" value="unionpaywgB2BCCB|unionpaywgB2B|CCB|3"/>
+      <button type="button" class="uk-button uk-button-default">
+        <img src="" title="建设银行-银联网关-企业版" alt="建设银行-银联网关-企业版">
+        <span class="bscript">企业</span>
+      </button>
+    </span>
 
-        <span>
-          <input class="uk-radio" type="radio" name="bankId" value="unionpaywgB2BCCB|unionpaywgB2B|CCB|3"/>
-          <button type="button" class="uk-button uk-button-default">
-            <img src="" title="建设银行-银联网关-企业版" alt="建设银行-银联网关-企业版">
-          </button>
-        </span>
+    <span>
+      <input class="uk-radio" type="radio" name="bankId" value="CMBCHINA2B2B|dove|CMBCHINA2B2B|3"/>
+      <button type="button" class="uk-button uk-button-default">
+        <img src="" title="招商银行企业银行" alt="招商银行企业银行">
+        <span class="bscript">企业</span>
+      </button>
+    </span>
 
-        <span>
-          <input class="uk-radio" type="radio" name="bankId" value="CMBCHINA2B2B|dove|CMBCHINA2B2B|3"/>
-          <button type="button" class="uk-button uk-button-default">
-            <img src="" title="招商银行企业银行" alt="招商银行企业银行">
-          </button>
-        </span>
+    <span>
+      <input class="uk-radio" type="radio" name="bankId" value="BOCB2B|dove|BOCB2B|3"/>
+      <button type="button" class="uk-button uk-button-default">
+        <img src="" title="中国银行企业版" alt="中国银行企业版">
+        <span class="bscript">企业</span>
+      </button>
+    </span>
 
-        <span>
-          <input class="uk-radio" type="radio" name="bankId" value="BOCB2B|dove|BOCB2B|3"/>
-          <button type="button" class="uk-button uk-button-default">
-            <img src="" title="中国银行企业版" alt="中国银行企业版">
-          </button>
-        </span>
+    <span>
+      <input class="uk-radio" type="radio" name="bankId" value="NUCCB2BCMBC|NUCCB2B|CMBC|3"/>
+      <button type="button" class="uk-button uk-button-default">
+        <img src="" title="中国民生银行-网联" alt="中国民生银行-网联">
+        <span class="bscript">企业</span>
+      </button>
+    </span>
 
-        <span>
-          <input class="uk-radio" type="radio" name="bankId" value="NUCCB2BCMBC|NUCCB2B|CMBC|3"/>
-          <button type="button" class="uk-button uk-button-default">
-            <img src="" title="中国民生银行-网联" alt="中国民生银行-网联">
-          </button>
-        </span>
-
-    </td>
-  </tr>
-</table>
-<div class="til_iput">
-  <input type="button" name="button" value="提交" onclick="setLineBank();" class="botton"  style="margin:0 auto;display:block" />
-</div>
+  </div>
+  <div class="uk-flex uk-flex-center uk-margin">
+    <input type="button" name="button" value="提交" onclick="setLineBank();" class="uk-button uk-button-primary">
+  </div>
 </ol>

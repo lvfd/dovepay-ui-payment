@@ -50,13 +50,23 @@ export function bindBankLogo(radio) {
   if (arc.length < 1) return
   arc.forEach(el => {
     const btn = el.parentNode.querySelector('button')
+    if (!btn) return
     btn.addEventListener('click', event => el.click())
     const img = btn.querySelector('img')
+    if (!img) return
     bankInfo.some(el => {
       if (new RegExp(el.regExp).test(img.alt)) {
         img.src = el.logo
         return true
       }
     })
+  })
+  const bscript = document.querySelectorAll('.bscript')
+  if (bscript.length < 1) return
+  bscript.forEach(el => {
+    el.classList.add('uk-badge')
+    el.style.position = 'relative'
+    el.style.top = '-15px'
+    el.style.right = '-30px'
   })
 }
