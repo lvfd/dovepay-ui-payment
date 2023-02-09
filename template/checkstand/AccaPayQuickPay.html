@@ -1,0 +1,319 @@
+<ol class="payOl SelectBank" id="payInput_13" style="display: none;">
+  <input type="hidden" name="bankstyle" value="bankTitle_13"/>
+  <div uk-grid>
+    <div>
+      <span id='spanunionpay_2106'>
+        <label>
+          <input class="uk-radio" type="radio" name="fastId" value="2106" data="1" onclick="selectNuccCard()">
+          <button type="button" class="uk-button uk-button-default">
+            <img src="" alt="中国建设银行">
+            &nbsp;**0102-借记卡 
+          </button>
+        </label>
+      </span>
+    </div>
+    <div>
+      <span id='spanunionpay_2105'>
+        <label>
+          <input class="uk-radio" type="radio" name="fastId" value="2105" data="1" onclick="selectNuccCard()"> 
+          <button type="button" class="uk-button uk-button-default">
+            <img src="" alt="中国建设银行">
+            &nbsp;**0101-借记卡 
+          </button>
+        </label>
+      </span>
+    </div>
+    <div>
+      <span id='spanunionpay_487'>
+        <label>
+          <input class="uk-radio" type="radio" name="fastId" value="487" data="2" onclick="selectNoCard()">
+          <button type="button" class="uk-button uk-button-default">
+            <img src="" alt="北京银行">
+            &nbsp;**0011-借记卡 
+          </button>   
+        </label>
+      </span>
+    </div>
+  </div>
+  <a class="uk-button uk-button-primary uk-margin" href="#" id="addFastCard" onclick="addBankCard()" >添加银行卡</a>
+  <!-- <a href='#' onclick="popUp()"><font color="blue">《德付通快捷支付服务协议》</font></a> -->
+  <div id='quickConfirmDivunionpay' class="uk-card uk-card-default" style="display:none">
+    <div class="uk-card-body">
+      <input type="hidden" id="quickConfirmDiv_unionpaybankName" name="quickConfirmDiv_unionpaybankName"/>
+      <table>
+        <tr >
+          <td align="right">持卡人姓名：</td>
+          <td><span id='quickConfirmDiv_unionpaycardName'></span></td>
+          <td></td>           
+          <td></td> 
+        </tr>
+        <tr >
+          <td align="right">身份证号：</td>
+          <td><span id='quickConfirmDiv_unionpayidNumber'></span></td>
+          <td></td>           
+        </tr>
+        <tr >
+          <td align="right">快捷支付手机号：</td>
+          <td>
+            <span id='quickConfirmDiv_unionpayphone'></span>
+            <input type='text' id='quickConfirmDiv_unionpayphone_input' placeholder='请输入银行预留手机号' 
+              style="width: 80px; height: 22px; display: none" onblur='validNewPhone()' autocomplete="off"/>
+            &nbsp;&nbsp;
+            <!-- <span onclick='changePhone()' style="cursor: pointer;"><font color="blue">更换手机号</font></span> -->
+            <input type="hidden" id='isNewPhone' value='false'/>
+          </td>
+          <td><span id='quickConfirmDiv_phone_msg' style="color: red;"></span></td>   
+          <td></td>       
+        </tr>
+        <tr id="sendCode" style="display:none" >
+          <td align="right">验证码：</td>
+          <td><input id="div_securityCode" name='securityCode' style="width: 80px; height: 22px" autocomplete="off" />
+            &nbsp;&nbsp;
+            <input type="button" value='获取验证码' class="botton" onclick="getQuickCode()" />
+            <input type="hidden" id="sendCodeIsShow" name="sendCodeIsShow" value=1/>
+          </td>
+          <td>
+            <span id='div_securityCode_msg' style="color: red;"></span>
+          </td>
+          <td></td>           
+        </tr>
+        
+        <tr >
+          <td align="right">支付密码：</td>
+          <td align="left" >&nbsp;<span id="_ocx_password_unionpaynocard_str"></span>
+            <script type="text/javascript">
+              function createpassword4(){
+                var random , datab;
+                  //请求通讯加密两个参数(随机数pgeRZRandNum和数据B pgeRZDataB)
+                  Ajax.request({
+                      url : "https://test.dovepay.com/dovePay/skey_enstr.jsp?" + get_time(),
+                      type :"GET",
+                      async : false,
+                      success : function(xhr){
+                          var skey_enstr = pgeCtrl.trim(xhr.responseText);
+                          var o = skey_enstr.split(",");
+                          random = o[0];
+                          datab = o[1];
+                      }
+                  });
+                  
+                  window.pgeditorUnionpayNocard = new pge({
+                      pgePath : "https://test.dovepay.com/dovePay/ocx/",
+                      pgeId : "_ocx_passwordunionaynocard",//控件id
+                      pgeEditType : 0,//控件显示类型,0(星号),1(明文)
+                      pgeEreg1 : "[\\s\\S]*",//输入过程中字符类型限制[\\w]*
+                  pgeEreg2 : "[\\s\\S]{6,20}",  //输入完毕后字符类型判断条件[\\w]{6,16}
+                  pgeMaxlength : 20,//允许最大输入长度
+                  pgeTabindex : 2,//tab键顺序
+                      pgeClass : "ocx_style",//控件css样式
+                      pgeInstallClass : "ocx_style",//针对安装或升级的css样式
+                      pgeOnKeyDown : "quickConfirmPayUnionpayNocard()",//回车键响应函数，需焦点在控件中才能响应
+                      tabCallBack : "input2",//火狐tab键回调函数,设置要跳转到的对象ID
+                      AffineX:getPasswordAffineX(),
+                      AffineY:getPasswordAffineY(),
+                      pgeWindowID : "password" + new Date().getTime() + 2,
+                      pgeRZRandNum : random,
+                      pgeRZDataB : datab
+                  });
+                  pges = [];
+                pges.push(pgeditorUnionpayNocard);
+                
+                  window.pgeCtrl = pgeditorUnionpayNocard;
+                  
+                  pgeCtrl.pwdhtml("_ocx_password_unionpaynocard_str",pgeditorUnionpayNocard.load());
+                  //初始化
+                  pgeInit();
+              }
+                
+              /**
+                * 网联快捷支付页确认支付按钮
+                * @returns {Boolean}
+                */
+               function quickConfirmPayUnionpayNocard(){
+                var ObjValue= document.getElementById("accountChoose");
+                if(ObjValue!=null && ObjValue.checked){
+                  $('#isTogether').val("1");
+                }
+                $('#payUserBank_m').val('quickPayment');
+                $('#payUserBank_m1').val('quickPayment');
+                var selectCardId = $("input[name=FastPayId]:checked").val();
+                if(pgeditorUnionpayNocard.pwdValid()==1){
+                  alert("密码不符合要求");
+                   _$("_ocx_passwordunionaynocard").focus();
+                   return false;
+                }   
+                if(pgeditorUnionpayNocard.pwdLength()==0){
+                     alert("密码不能为空");
+                   _$("_ocx_passwordunionaynocard").focus();
+                   return false;
+                }
+                
+                $.ajax({
+                  url: "https://test.dovepay.com/dovePay/srand_num.jsp?"+get_time(),
+                  type: "GET",
+                  async: false,
+                  success: function(srand_num){
+                    pgeditorUnionpayNocard.pwdSetSk(srand_num);
+                  }
+                 });
+
+                var PwdResult=pgeditorUnionpayNocard.pwdResultSMGM();
+                _$("password").value=PwdResult;//获得密码密文,赋值给表单
+                var macResult=pgeditorUnionpayNocard.machineNetwork();
+                _$("macNumber").value=macResult;
+                //提交form
+                document.payUserBank.submit();
+               }
+            </script>
+            <input type="hidden" name="password" id="password" value=""/>
+            <input type="hidden" id="macNumber" name="macNumber" value="" />
+          </td>
+          <td>
+            <span id='pay_password_msg' style="color: red;"></span>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="uk-card-footer">
+      <input type="button" value='确认支付' onclick='quickConfirmPayUnionpayNocard()' class="uk-button uk-button-primary">
+      <button class="uk-button uk-button-default" onclick="deleteCardUnionpayNocard()"><font color="red">删除银行卡</font></button>
+    </div>
+  </div>
+   <!-- 网联快捷支付 -->
+  <div id='quickConfirmDivnucc' class="uk-card uk-card-default" style="display:none">
+    <div class="uk-card-body">
+      <input type="hidden" id="quickConfirmDiv_nuccbankName" name="quickConfirmDiv_nuccbankName"/>
+      <table>
+        <tr>
+          <td align="right">持卡人姓名：</td>
+          <td><span id='quickConfirmDiv_nucccardName'></span></td>
+          <td></td>           
+          <td></td> 
+        </tr>
+        <tr>
+          <td align="right">身份证号：</td>
+          <td><span id='quickConfirmDiv_nuccidNumber'></span></td>
+          <td></td>           
+        </tr>
+        <tr>
+          <td align="right">快捷支付手机号：</td>
+          <td>
+            <span id='quickConfirmDiv_nuccphone'></span>
+            <input type='text' id='quickConfirmDiv_phone_input' placeholder='请输入银行预留手机号' 
+              style="width: 80px; height: 22px; display: none" onblur='validNewPhone()' autocomplete="off"/>
+            &nbsp;&nbsp;
+            <!-- <span onclick='changePhone()' style="cursor: pointer;"><font color="blue">更换手机号</font></span> -->
+            <input type="hidden" id='isNewPhone' value='false'/>
+          </td>
+          <td><span id='quickConfirmDiv_phone_msg' style="color: red;"></span></td>   
+          <td></td>       
+        </tr>
+        <tr id="sendCode" style="display:none">
+          <td align="right">验证码：</td>
+          <td><input id="div_securityCode" name='securityCode' style="width: 80px; height: 22px" autocomplete="off" />
+            &nbsp;&nbsp;
+            <input type="button" value='获取验证码' class="botton" onclick="getQuickCode()" />
+            <input type="hidden" id="sendCodeIsShow" name="sendCodeIsShow" value=1/>
+          </td>
+          <td>
+            <span id='div_securityCode_msg' style="color: red;"></span>
+          </td>
+          <td></td>           
+        </tr>
+        <tr>
+          <td align="right">支付密码：</td>
+          <td align="left" >&nbsp;<span id="_ocx_password_nucc_str"></span>
+            <script type="text/javascript">
+              function createpassword2(){
+                var random , datab;
+                  //请求通讯加密两个参数(随机数pgeRZRandNum和数据B pgeRZDataB)
+                  Ajax.request({
+                      url : "https://test.dovepay.com/dovePay/skey_enstr.jsp?" + get_time(),
+                      type :"GET",
+                      async : false,
+                      success : function(xhr){
+                          var skey_enstr = pgeCtrl.trim(xhr.responseText);
+                          var o = skey_enstr.split(",");
+                          random = o[0];
+                          datab = o[1];
+                      }
+                  });
+                  
+                  // accaPayFasePay.jsp
+                  window.pgeditornucc = new pge({
+                      pgePath : "https://test.dovepay.com/dovePay/ocx/",
+                      pgeId : "_ocx_passwordnucc",//控件id
+                      pgeEditType : 0,//控件显示类型,0(星号),1(明文)
+                      pgeEreg1 : "[\\s\\S]*",//输入过程中字符类型限制[\\w]*
+                  pgeEreg2 : "[\\s\\S]{6,20}",  //输入完毕后字符类型判断条件[\\w]{6,16}
+                  pgeMaxlength : 20,//允许最大输入长度
+                  pgeTabindex : 1,//tab键顺序
+                      pgeClass : "ocx_style",//控件css样式
+                      pgeInstallClass : "ocx_style",//针对安装或升级的css样式
+                      pgeOnKeyDown : "quickConfirmPay()",//回车键响应函数，需焦点在控件中才能响应
+                      tabCallBack : "input2",//火狐tab键回调函数,设置要跳转到的对象ID
+                      AffineX:getPasswordAffineX(),
+                      AffineY:getPasswordAffineY(),
+                      pgeWindowID : "password" + new Date().getTime() + 1,
+                      pgeRZRandNum : random,
+                      pgeRZDataB : datab
+                  });
+                  pges = [];
+                pges.push(pgeditornucc);
+                  
+                  window.pgeCtrl = pgeditornucc;
+                  
+                  pgeCtrl.pwdhtml("_ocx_password_nucc_str",pgeditornucc.load());
+                  //初始化
+                  pgeInit();
+              }
+            
+              function quickConfirmPaynucc(){
+                var ObjValue= document.getElementById("accountChoose");
+                if(ObjValue!=null && ObjValue.checked){
+                  $('#isTogether').val("1");
+                }
+                $('#payUserBank_m').val('quickPayment');
+                $('#payUserBank_m1').val('quickPayment');
+
+                if(pgeditornucc.pwdValid()==1){
+                  alert("密码不符合要求");
+                   _$("_ocx_passwordnucc").focus();
+                   return false;
+                }   
+                if(pgeditornucc.pwdLength()==0){
+                     alert("密码不能为空");
+                   _$("_ocx_passwordnucc").focus();
+                   return false;
+                }
+                $.ajax({
+                  url: "https://test.dovepay.com/dovePay/srand_num.jsp?"+get_time(),
+                  type: "GET",
+                  async: false,
+                  success: function(srand_num){
+                    pgeditornucc.pwdSetSk(srand_num);
+                  }
+                });
+                var PwdResult=pgeditornucc.pwdResultSMGM();
+                _$("password").value=PwdResult;//获得密码密文,赋值给表单
+                var macResult=pgeditornucc.machineNetwork();
+                _$("macNumber").value=macResult;
+                //提交form
+                document.payUserBank.submit();
+               }
+            </script>
+            <input type="hidden" name="password" id="password" value=""/>
+            <input type="hidden" id="macNumber" name="macNumber" value="" />
+          </td>
+          <td>
+            <span id='pay_password_msg' style="color: red;"></span>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="uk-card-footer">
+      <input type="button" value='确认支付' onclick='quickConfirmPaynucc()' class="uk-button uk-button-primary">
+      <button type="button" class="uk-button uk-button-default" onclick="deleteCard()"><font color="red">删除银行卡</font></button>
+    </div>
+  </div>
+</ol>

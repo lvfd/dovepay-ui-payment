@@ -1,6 +1,6 @@
   <div id="wzhPay">
     <div class="titpy" style="height:auto; padding-bottom: 5px;">
-      <%- include('AccaPayBankType_Ways.html') %>
+      <%- include('AccaPayBankType_Ways.html', { src: 'AccaPayBankType'}) %>
     </div>
     <form class="payForm" action="https://test.dovepay.com/dovePay/payAction.do" method="post" name="payUserBank" id='payUserBank' onsubmit="return checkBankId();">
       <input type="hidden" name="orderId" value="2023020300457362" />
@@ -9,6 +9,6 @@
       <input type="hidden" id="payType" name="payType" value="2" /> 
       <input type="hidden" id="SAFE_PLUGIN_LOGIN_PASSWORD" name="SAFE_PLUGIN_LOGIN_PASSWORD" /> 
       <input type="hidden" name="token" value="1675410002245" />
-      <%- include('AccaPayBankType_Banks.html') %>
+      <%- include('AccaPayBankType_Banks.html', {src: 'AccaPayBankType'}) %>
     </form>
   </div>

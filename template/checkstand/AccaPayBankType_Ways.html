@@ -1,14 +1,17 @@
-<tr>
-  <td><!-- <img src="images/tit_yhxz.gif" alt="银行信息" width="110" height="43"/> --> <span style="color:#F4A460">请选择支付方式 :　　</span></td>
-  <td>
-    <label>
-      
-      <input type="radio" name='checkstandWay' value="payTitle_2" 
-        onclick="changeStyle();" style="border: 0px;"/>个人网银
-      
-      <input type="radio" name='checkstandWay' value="payTitle_3" 
-        onclick="changeStyle();" style="border: 0px;"/>企业网银
-      
-    </label>
-  </td>
-</tr>
+<h2 class="uk-heading-bullet uk-heading-line uk-h4"><span>请选择支付方式 :</span></h2>
+<ul id="accaPayBankType_ul" uk-tab>
+<% if (src === 'accaBankPay') { %>
+  <li>
+    <input type="radio" name='checkstandWay' value="payTitle_13"  onclick="changeStyle();" hidden>
+    <a href="javascript:void(0)">快捷支付</a>
+  </li>
+<% } %>
+  <li>
+    <input type="radio" name='checkstandWay' value="payTitle_2"  onclick="changeStyle();" hidden>
+    <a href="javascript:void(0)">个人网银</a>
+  </li>
+  <li>
+    <input type="radio" name='checkstandWay' value="payTitle_3"  onclick="changeStyle();" hidden>
+    <a href="javascript:void(0)">企业网银</a>
+  </li>
+</ul>
