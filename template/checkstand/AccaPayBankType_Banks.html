@@ -79,7 +79,7 @@
         <span>
           <input class="uk-radio" type="radio" name="bankId" value="unionpayTokenDebit|dove|unionpayTokenDebit|2"/>
           <button type="button" class="uk-button uk-button-default">
-            <img src="" title="银联token支付-借记" alt="银联token支付-借记111">
+            <img src="" title="银联token支付-借记222" alt="银联token支付-借记">
           </button>
         </span>
       <% } %>
@@ -92,57 +92,65 @@
 </ol>
 
 <% if (src === 'AccaPayBankType') { %>
-<ol class="yui-nav2 SelectBank clearfix line_h36" id="payInput_2" style="display: none">
-  <table class="bankChoice" border="0" align="center" cellpadding="0" cellspacing="0">
-    <tr>
-      <td height="60" valign="top" class="blank">
+<ol class="yui-nav2 SelectBank clearfix line_h36 uk-padding-remove" id="payInput_2" style="display: none">
+  <div class="uk-flex">
+    <ul class="uk-tab-right" uk-tab>
+      <li><a href="#"><span class="uk-text-nowrap">储蓄卡</span></a></li>
+      <li><a href="#"><span class="uk-text-nowrap">信用卡</span></a></li>
+    </ul>
+    <ul class="uk-switcher">
+      <li>
+        <div class="uk-grid-small" uk-grid>
+          <span>
+            <input class="uk-radio" type="radio" name="bankId" value="RXTICBC|HXB_RXTKH|RXTICBC|2" >
+            <button type="button" class="uk-button uk-button-default">
+              <img src="" title="工商银行-02" alt="工商银行-02">
+            </button>
+          </span>
 
-        <span>
-          <input class="uk-radio" type="radio" name="bankId" value="RXTICBC|HXB_RXTKH|RXTICBC|2" >
-          <button type="button" class="uk-button uk-button-default">
-            <img src="" title="工商银行-02" alt="工商银行-02">
-          </button>
-        </span>
+          <span>
+            <input class="uk-radio" type="radio" name="bankId" value="unionpayCMBC|unionpay|CMBC|2"  />
+            <button type="button" class="uk-button uk-button-default">
+              <img src="" title="民生银行-01" alt="民生银行-01">
+            </button>
+          </span>
 
-        <span>
-          <input class="uk-radio" type="radio" name="bankId" value="unionpayCMBC|unionpay|CMBC|2"  />
-          <button type="button" class="uk-button uk-button-default">
-            <img src="" title="民生银行-01" alt="民生银行-01">
-          </button>
-        </span>
+          <span>
+            <input class="uk-radio" type="radio" name="bankId" value="unionpaywgB2CCCBCREDIT|unionpaywgB2C|CCB|2"  />
+            <button type="button" class="uk-button uk-button-default">
+              <img src="" title="建设银行-贷记卡-银联网关个人版" alt="建设银行-贷记卡-银联网关个人版">
+            </button>
+          </span>
 
-        <span>
-          <input class="uk-radio" type="radio" name="bankId" value="unionpaywgB2CCCBCREDIT|unionpaywgB2C|CCB|2"  />
-          <button type="button" class="uk-button uk-button-default">
-            <img src="" title="建设银行-贷记卡-银联网关个人版" alt="建设银行-贷记卡-银联网关个人版">
-          </button>
-        </span>
+          <span>
+            <input class="uk-radio" type="radio" name="bankId" value="RXTCMB|HXB_RXTKH|RXTCMB|2"  />
+            <button type="button" class="uk-button uk-button-default">
+              <img src="" title="招商银行-02" alt="招商银行-02">
+            </button>
+          </span>
 
-        <span>
-          <input class="uk-radio" type="radio" name="bankId" value="RXTCMB|HXB_RXTKH|RXTCMB|2"  />
-          <button type="button" class="uk-button uk-button-default">
-            <img src="" title="招商银行-02" alt="招商银行-02">
-          </button>
-        </span>
+          <span>
+            <input class="uk-radio" type="radio" name="bankId" value="unionpayTokenCredit|dove|unionpayTokenCredit|2"  />
+            <button type="button" class="uk-button uk-button-default">
+              <img src="" title="银联Token支付-贷记" alt="银联Token支付-贷记">
+            </button>
+          </span>
 
-        <span>
-          <input class="uk-radio" type="radio" name="bankId" value="unionpayTokenCredit|dove|unionpayTokenCredit|2"  />
-          <button type="button" class="uk-button uk-button-default">
-            <img src="" title="银联Token支付-贷记" alt="银联Token支付-贷记">
-          </button>
-        </span>
-
-        <span>
-          <input class="uk-radio" type="radio" name="bankId" value="unionpayTokenDebit|dove|unionpayTokenDebit|2"  />
-          <button type="button" class="uk-button uk-button-default">
-            <img src="" title="银联token支付-借记" alt="银联token支付-借记">
-          </button>
-        </span>
-
-      </td>
-    </tr>
-  </table>
-
+          
+        </div>
+      </li>
+      <li>
+        <div class="uk-grid-small" uk-grid>
+          <span>
+            <input class="uk-radio" type="radio" name="bankId" value="unionpayTokenDebit|dove|unionpayTokenDebit|2"  />
+            <button type="button" class="uk-button uk-button-default">
+              <img src="" title="银联token支付-借记111" alt="银联token支付-借记">
+            </button>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
   <div class="uk-flex uk-flex-center uk-margin">
     <input type="button" name="button" value="提交" onclick="setLineBank();" class="uk-button uk-button-primary">
   </div>

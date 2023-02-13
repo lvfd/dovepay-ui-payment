@@ -3,14 +3,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>德付通支付平台</title>
-<script src="https://www.dovepay.com/dovePay/js/Polyfill.js"></script>
-<script type="text/javascript" src="https://www.dovepay.com/dovePay/js/jquery-one.seven.min.js"></script>
-<script type="text/javascript" src="https://www.dovepay.com/dovePay/js/jquery.DatePicker.min.js"></script>
-<script language="javascript" src="https://www.dovepay.com/dovePay/js/dfp_CH01.js"></script>
-<script language="javascript" src="https://www.dovepay.com/dovePay/js/PassGuardCtrl.js"></script>
-<script language="javascript" src="https://www.dovepay.com/dovePay/js/thickbox.js"></script>
-<script language="javascript" src="https://www.dovepay.com/dovePay/js/password.js"></script>
-<script type="text/javascript" src="https://www.dovepay.com/dovePay/js/CheckstandBanks.js"></script>
+<script src="https://test.dovepay.com/dovePay/js/Polyfill.js"></script>
+<script type="text/javascript" src="https://test.dovepay.com/dovePay/js/jquery-one.seven.min.js"></script>
+<script type="text/javascript" src="https://test.dovepay.com/dovePay/js/jquery.DatePicker.min.js"></script>
+<script language="javascript" src="https://test.dovepay.com/dovePay/js/dfp_CH01.js"></script>
+<script language="javascript" src="https://test.dovepay.com/dovePay/js/PassGuardCtrl.js"></script>
+<script language="javascript" src="https://test.dovepay.com/dovePay/js/thickbox.js"></script>
+<script language="javascript" src="https://test.dovepay.com/dovePay/js/password.js"></script>
+<script type="text/javascript" src="https://test.dovepay.com/dovePay/js/CheckstandBanks.js"></script>
 <script type="text/javascript" src="http://localhost:3001/dt/dist/accaBankPay.js"></script>
 </head>
 <body>
@@ -20,7 +20,7 @@
       <div class="uk-flex uk-flex-center">
         <div class="leftpay uk-width-3-4 uk-margin-right">
           <h1 class="uk-heading-bullet uk-heading-line uk-h4"><span>订单信息</span></h1>
-          <form action="https://www.dovepay.com/dovePay/payAction.do" method="post" name="payUserBank" onSubmit="return checkBankId();">
+          <form action="https://test.dovepay.com/dovePay/payAction.do" method="post" name="payUserBank" onSubmit="return checkBankId();">
             <div class="til_iput2">
               <input type="hidden" name="amt" id="amt" value="-9324.50" /> 
               <input type="hidden" name="amt" id="amt" value="null" /> 
@@ -93,6 +93,6 @@
       </div>
     </div>
   </main>
->  <footer class="uk-background-muted"><%- include('protected/footer.html') %></footer>
+  <footer class="uk-background-muted"><%- include('protected/footer.html') %></footer>
 </body>
 </html>

@@ -15,6 +15,7 @@ function main() {
   try {
     setMainMinHeight()
     bindBankType_Ways()
+    bindBankLogo('input[name="bankId"]')
   } catch(e) {
     console.error(e, e.stack)
   }
@@ -44,7 +45,7 @@ export function bindBankType_Ways() {
   })
 }
 
-import bankInfo from '@lyufudi/dovepay-ui/src/bank-info'
+import bankInfo from '../../dovepay-ui/src/bank-info'
 export function bindBankLogo(radio) {
   const arc = document.querySelectorAll(radio)
   if (arc.length < 1) return
