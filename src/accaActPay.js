@@ -1,11 +1,8 @@
-import accaActPay_js from '@src/accaActPay.origin.js'
-import accaPayBankType_js from '@src/accaPayBankType_Banks.origin.js'
 import uikit_js from '@lyufudi/uikit/dist/js/uikit.min.js'
 import uikit_css from '@lyufudi/uikit/dist/css/uikit.dove-theme.min.css'
 
 document.write(`
   <link rel="stylesheet" href="${uikit_css}">
-  <script src="${accaActPay_js}"></script>
   <script src="${uikit_js}"></script>
   `)
 
@@ -16,6 +13,7 @@ function main() {
     setMainMinHeight()
     bindBankType_Ways()
     bindBankLogo('input[name="bankId"]')
+    bindBankLogo('input[name="qrcode"]')
   } catch(e) {
     console.error(e, e.stack)
   }
@@ -45,7 +43,7 @@ export function bindBankType_Ways() {
   })
 }
 
-import bankInfo from '../../dovepay-ui/src/bank-info'
+import { logoInfo } from '../../dove-utils'
 export function bindBankLogo(radio) {
   const arc = document.querySelectorAll(radio)
   if (arc.length < 1) return
@@ -55,7 +53,7 @@ export function bindBankLogo(radio) {
     btn.addEventListener('click', event => el.click())
     const img = btn.querySelector('img')
     if (!img) return
-    bankInfo.some(el => {
+    logoInfo.some(el => {
       if (new RegExp(el.regExp).test(img.alt)) {
         img.src = el.logo
         return true

@@ -13,6 +13,129 @@
 <script language="javascript" src="https://test.dovepay.com/dovePay/js/password.js"></script>
 <script language="javascript" src="https://test.dovepay.com/dovePay/js/dfp_CH01.js"></script>
 <script type="text/javascript" src="https://test.dovepay.com/dovePay/js/CheckstandBanks.js"></script>
+
+<style>
+  .bb {
+    position: relative;
+  }
+
+  .bb a {
+    position: relative;
+    display: block;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .aa {
+    position: absolute;
+    top: 23px;
+    right: 0px;
+    display: none;
+    width: 100%;
+    height: 100px;
+    background: #e4f4fc;
+    word-break: break-all;
+    overflow-y: auto;
+    padding: 5px;
+  }
+</style>
+<script type="text/javascript">
+    $(function(){
+    tabView(".search-condition-nav","on");
+    
+    $(".bb").hover(function(){
+      $(".aa").show();
+    },function(){
+      $(".aa").hide();
+    })
+  });
+  function tabView(originClassName,addClassName){
+    $(originClassName).click(function() {
+      $(originClassName).removeClass(addClassName);
+      $(this).addClass(addClassName);
+    });
+  }
+</script>
+<script type="text/javascript">
+  var dfp = model.dfp.getDfpValues(); 
+  dfp();
+
+  window.onload = function(){
+    var str = document.getElementsByName("checkstandWay");
+    var objarray = str.length;
+    for (var i = 0; i < objarray; i++) {
+      if (str[i].checked == true) {
+        changeStyle();
+      }
+    }
+    var payType = $("#payType").val();
+    if (payType == 4) {
+      document.getElementById("wzhPay").style.display = "";
+    }
+  }
+  
+  function checkForm() {
+    var pwd = document.payForm.password.value;
+    var userId = document.payForm.userId.value;
+    if (pwd == "" || userId == "") {
+      document.getElementById("errLi1").style.display = "";
+      document.getElementById("errLi2").style.display = "";
+      document.getElementById("errMsg").innerHTML = "对不起，用户名和密码不能为空！";
+      return;
+    } else {
+      document.getElementById("errLi1").style.display = "none";
+      document.getElementById("errLi2").style.display = "none";
+      document.getElementById("errMsg").innerHTML = "";
+    }
+  }
+  /* 虚拟银联卡表单验证 */
+  function checkFormVCBankId() {
+    var pwd = document.payFormVC.passwordVC.value;
+    var userId = document.payFormVC.bankId.value;
+    if (pwd == "" || userId == "") {
+      document.getElementById("errLi1").style.display = "";
+      document.getElementById("errLi2").style.display = "";
+      document.getElementById("errMsg").innerHTML = "对不起，用户名和密码不能为空！";
+      return;
+    } else {
+      document.getElementById("errLiVC1").style.display = "none";
+      document.getElementById("errLiVC2").style.display = "none";
+      document.getElementById("errMsgVC").innerHTML = "";
+    }
+  }
+  function f1() {
+    if(document.getElementById("formButtonId")){
+      document.getElementById("formButtonId").disabled=true;
+    }
+    if(document.getElementById("formButtonVCId")){
+      document.getElementById("formButtonVCId").disabled=true;
+    }
+  }
+  
+  function checkScan() {
+    if(jQuery("input[name=bankId]:checked").length==0){
+      alert("请您选择扫码方式！");
+      return false;
+    }
+    return true;
+  }
+
+  function changeStyle(){
+    var chkObjs = document.getElementsByName("checkstandWay");
+    $("ol.SelectBank").css({"display":"none"});
+    for(var i=0;i<chkObjs.length;i++){
+      if(chkObjs[i].checked){
+        var title_id = chkObjs[i].value;
+        var params = title_id.split("_");
+        $("#payInput_" + params[1]).css({"display":""});
+        break; 
+      } 
+    }
+  }
+</script>
+<script type="text/javascript" src="http://localhost:3001/dt/dist/commons.js"></script>
 <script type="text/javascript" src="http://localhost:3001/dt/dist/accaActPay.js"></script>
 </head>
 <body>
@@ -55,6 +178,7 @@
             <li><%- include('checkstand/AccaPayUNIONAliPayCode.html') %></li><!-- id="AliPay" 支付宝-->
             <li><%- include('checkstand/AccaPayMasterPay.html') %></li><!-- id="masterPay"  国际信用卡-->
             <li><%- include('checkstand/virtualCardPay.html') %></li><!-- id="vcPay"  银联卡支付-->
+            <li><%- include('checkstand/AccaPayQrCode.html') %></li><!--qrcode-->
           </ul>
         </div>
         <%- include('rightpay.html') %>
