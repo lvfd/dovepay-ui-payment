@@ -39,7 +39,13 @@ export function bindBankType_Ways() {
   const el = document.querySelectorAll('#accaPayBankType_ul li a')
   if (el.length < 1) return
   el.forEach( label => {
-    label.addEventListener('click', event => event.target.parentNode.querySelector('input').click())
+    label.addEventListener('click', event => {
+      let ns = event.target.parentNode.nextSibling
+      while (ns) {
+        if (ns.nodeName === 'INPUT') return ns.click()
+        ns = ns.nextSibling
+      }
+    })
   })
 }
 
