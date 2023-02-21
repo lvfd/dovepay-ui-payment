@@ -6,7 +6,8 @@ module.exports = merge(common, {
   name: 'dovepay-ui-payment',
   entry: {
     accaActPay: './src/accaActPay',
-    accaBankPay: './src/accaBankPay'
+    accaBankPay: './src/accaBankPay',
+    vendor: './src/vendor'
   },
   output: {
     path: process.env.NODE_ENV === 'production'?

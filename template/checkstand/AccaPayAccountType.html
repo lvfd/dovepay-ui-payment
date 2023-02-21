@@ -30,9 +30,12 @@
       <div class="uk-form-custom uk-flex uk-flex-middle">
         <label class="uk-form-label" style="width: 70px">验证码</label>
         <div class="uk-form-controls">
-          <input class="uk-input uk-width-medium uk-margin-right" id="" type="text" placeholder="请输入右侧验证码">
+          <div class="uk-inline">
+            <a title="刷新验证码" class="uk-form-icon uk-form-icon-flip uk-margin-right" uk-icon="icon: refresh" onclick="changeValidateImage()"></a>
+            <input class="uk-input uk-width-medium uk-margin-right" id="" type="text" placeholder="请输入右侧验证码">
+          </div>
         </div>
-        <div style="background-color: gray; height: 100%">ＦＵＣＫ</div>
+        <img id="randomCode" style="height: 40px" src="https://test.dovepay.com/dovePay/servlet/myimage.do" alt="验证码"/>
       </div>
     </div>
   </div>  

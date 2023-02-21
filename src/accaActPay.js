@@ -1,9 +1,11 @@
 import uikit_js from '@lyufudi/uikit/dist/js/uikit.min.js'
+import uikit_icon from '@lyufudi/uikit/dist/js/uikit-icons.min.js'
 import uikit_css from '@lyufudi/uikit/dist/css/uikit.dove-theme.min.css'
 
 document.write(`
   <link rel="stylesheet" href="${uikit_css}">
   <script src="${uikit_js}"></script>
+  <script src="${uikit_icon}"></script>
   `)
 
 window.addEventListener('DOMContentLoaded', main)
@@ -25,6 +27,7 @@ export function setMainMinHeight() {
     header: document.querySelector('header'),
     footer: document.querySelector('footer')
   }
+  if (!dom.main || !dom.header || !dom.footer) return
   dom.main.style.minHeight = getMainMinHeight([dom.header, dom.footer]) + 'px'
   window.addEventListener('resize', e => dom.main.style.minHeight = setMainMinHeight([dom.header, dom.footer]) + 'px')
 }
